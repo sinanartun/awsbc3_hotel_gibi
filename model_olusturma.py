@@ -21,7 +21,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import classification_report
 
 
-df = pd.read_csv(r'C:\Users\Berat Arslan\PycharmProjects\pythonProject\pythonProject2\pythonProject1\aws_cloud_technical_bootcamp\Final\hotel_bookings.csv')
+df = pd.read_csv(r'hotel_bookings.csv')
 
 
 df['arrival_date_month'].replace({'January' : '1',
@@ -137,7 +137,7 @@ for train_index, test_index in kfold_cv.split(X_model,y_model):
     X_train, X_test = X_model.iloc[train_index], X_model.iloc[test_index]
     y_train, y_test = y_model.iloc[train_index], y_model.iloc[test_index]
 
-xgb_model = XGBClassifier( learning_rate = 0.01, max_depth = 5, n_estimators = 5000,
+xgb_model = XGBClassifier( learning_rate = 0.01, max_depth = 5, n_estimators = 500,
                           objective ='binary:logistic', subsample = 1.0)
 # fit the model
 xgb_model.fit(X_train, y_train)
