@@ -34,7 +34,7 @@ def deger_olusturma():
 #Tahmin edilecek değerlerle ana veriyi birleştirir, bu işlem feature engineering işlemlerinin birlikte çalışması için yapılır
 def df_ile_birlestirme():
     df_1 = pd.read_csv(
-        r'C:\Users\Berat Arslan\PycharmProjects\pythonProject\pythonProject2\pythonProject1\aws_cloud_technical_bootcamp\Final\hotel_bookings.csv')
+        r'hotel_bookings.csv')
 
     deger = deger_olusturma()
     df = pd.concat([deger, df_1.loc[:]]).reset_index(drop=True)
@@ -122,7 +122,7 @@ def feature_engineering(df):
 
 def tahminleme():
     x_model = feature_engineering(df)
-    xgb_model_from_disc = joblib.load(r"C:\Users\Berat Arslan\PycharmProjects\pythonProject\pythonProject2\pythonProject1\aws_cloud_technical_bootcamp\Final\xgb_model.pkl")
+    xgb_model_from_disc = joblib.load(r"xgb_model.pkl")
     sonuc = xgb_model_from_disc.predict(x_model)
     print('Tahmin Edilen Değer:', sonuc[0])
     return sonuc[0]
