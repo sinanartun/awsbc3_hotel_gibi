@@ -1,6 +1,21 @@
 import pandas as pd
 import numpy as np
 import joblib
+import uvicorn
+from fastapi import FastAPI, Depends, Request
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+origins = [
+    "*"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -33,8 +48,7 @@ def deger_olusturma():
 
 #Tahmin edilecek değerlerle ana veriyi birleştirir, bu işlem feature engineering işlemlerinin birlikte çalışması için yapılır
 def df_ile_birlestirme():
-    df_1 = pd.read_csv(
-        r'hotel_bookings.csv')
+    df_1 = pd.read_csv(r'hotel_bookings.csv')
 
     deger = deger_olusturma()
     df = pd.concat([deger, df_1.loc[:]]).reset_index(drop=True)
@@ -127,11 +141,16 @@ def tahminleme():
     print('Tahmin Edilen Değer:', sonuc[0])
     return sonuc[0]
 
-sonuc = tahminleme()
-sonuc
 
 
+@app.get("/{v1}/{v1}/{v1}/{v1}/{v1}/{v1}/{v1}/{v1}/")
+async def run():
+    tahminleme()
 
+    return {"username": ""}
+
+if __name__ == "__main__":
+    uvicorn.run("tahminleme:app", host="0.0.0.0", port=80, reload=True)
 
 
 
